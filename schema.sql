@@ -79,6 +79,7 @@ CREATE TABLE ddv.values
   value_id ddv.value_id_t NOT NULL DEFAULT NEXTVAL('ddv.value_seq'),
   parent_parameter_id ddv.parameter_id_t NOT NULL,
   val ddv.value_t NOT NULL,
+  value_pos ddv.pos_t NOT NULL,
   CONSTRAINT values_pkey PRIMARY KEY (value_id),
   CONSTRAINT values_plink FOREIGN KEY (parent_parameter_id)
       REFERENCES ddv.parameters (parameter_id) MATCH SIMPLE
