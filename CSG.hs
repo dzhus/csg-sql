@@ -1,4 +1,4 @@
-module CSG
+module Main
 
 where
 
@@ -13,14 +13,14 @@ type Point = Vector
 data Object = Sphere Point Double
             | Plane Vector Double
             | Cylinder Vector Point Double
-            deriving Show
+            deriving (Show, Read)
 
 -- Composition of objects
 data Body = Primitive Object
           | Union [Body]
           | Intersection [Body]
           | Complement Body
-          deriving Show
+          deriving (Show, Read)
 
 -- * SQL interface
 
@@ -125,3 +125,8 @@ saveValue conn value pos parent = do
       [parent, toSql value, toSql pos]
   quickQuery' conn "SELECT currval('ddv.value_seq');" []  
   commit conn
+
+main = do
+  c <- connectPostgreSQL dbOpts
+  l <- readLn
+  saveBody c l Nothing
