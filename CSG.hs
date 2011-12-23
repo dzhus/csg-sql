@@ -129,4 +129,5 @@ saveValue conn value pos parent = do
 main = do
   c <- connectPostgreSQL dbOpts
   l <- readLn
-  saveBody c l Nothing
+  res <- saveBody c l Nothing
+  putStrLn (show ((fromSql res)::Integer))
